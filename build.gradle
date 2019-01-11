@@ -5,6 +5,7 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.20.0'
     id 'io.franzbecker.gradle-lombok' version '1.14' apply false
     id 'net.ltgt.errorprone' version '0.6.1' apply false
+    id "com.diffplug.gradle.spotless" version "3.16.0"
 }
 
 apply from: 'gradle/scripts/yaml.gradle'
@@ -40,6 +41,7 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'net.ltgt.errorprone'
     apply plugin: 'io.franzbecker.gradle-lombok'
+    apply plugin: 'com.diffplug.gradle.spotless'
 
     apply from: "${rootProject.projectDir}/gradle/scripts/release.gradle"
     apply from: "${rootProject.projectDir}/gradle/scripts/remote-lib.gradle"
@@ -168,6 +170,13 @@ subprojects {
     lombok {
         version = '1.18.4'
         sha256 = '39f3922deb679b1852af519eb227157ef2dd0a21eec3542c8ce1b45f2df39742'
+    }
+
+    spotless {
+        java {
+            googleJavaFormat()
+            importOrderFile rootProject.file('.eclipse/format/triplea.importorder')
+        }
     }
 
     test {
