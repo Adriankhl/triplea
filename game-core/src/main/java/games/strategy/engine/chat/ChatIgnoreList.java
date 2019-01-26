@@ -19,7 +19,7 @@ class ChatIgnoreList {
     try {
       Collections.addAll(ignore, prefs.keys());
     } catch (final BackingStoreException e) {
-      log.log(Level.FINE, e.getMessage(), e);
+      log.log(Level.INFO, e.getMessage(), e);
     }
   }
 
@@ -31,7 +31,7 @@ class ChatIgnoreList {
       try {
         prefs.flush();
       } catch (final BackingStoreException e) {
-        log.log(Level.FINE, e.getMessage(), e);
+        log.log(Level.INFO, e.getMessage(), e);
       }
     }
   }
@@ -48,7 +48,7 @@ class ChatIgnoreList {
       try {
         prefs.flush();
       } catch (final BackingStoreException e) {
-        log.log(Level.FINE, e.getMessage(), e);
+        log.log(Level.INFO, e.getMessage(), e);
       }
     }
   }
