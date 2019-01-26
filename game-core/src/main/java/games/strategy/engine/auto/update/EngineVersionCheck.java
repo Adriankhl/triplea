@@ -21,20 +21,16 @@ final class EngineVersionCheck {
   private EngineVersionCheck() {}
 
   static void checkForLatestEngineVersionOut() {
-    try {
-      if (!isEngineUpdateCheckRequired()) {
-        return;
-      }
+    if (!isEngineUpdateCheckRequired()) {
+      return;
+    }
 
-      final EngineVersionProperties latestEngineOut = new EngineVersionProperties();
+    final EngineVersionProperties latestEngineOut = new EngineVersionProperties();
 
-      if (ClientContext.engineVersion().isLessThan(latestEngineOut.getLatestVersionOut())) {
-        SwingUtilities
-            .invokeLater(() -> EventThreadJOptionPane.showMessageDialog(null, latestEngineOut.getOutOfDateComponent(),
-                "Please Update TripleA", JOptionPane.INFORMATION_MESSAGE));
-      }
-    } catch (final Exception e) {
-      log.log(Level.SEVERE, "Error while checking for engine updates", e);
+    if (ClientContext.engineVersion().isLessThan(latestEngineOut.getLatestVersionOut())) {
+      SwingUtilities
+          .invokeLater(() -> EventThreadJOptionPane.showMessageDialog(null, latestEngineOut.getOutOfDateComponent(),
+              "Please Update TripleA", JOptionPane.INFORMATION_MESSAGE));
     }
   }
 
