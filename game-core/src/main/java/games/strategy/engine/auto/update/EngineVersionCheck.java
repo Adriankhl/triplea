@@ -2,6 +2,7 @@ package games.strategy.engine.auto.update;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
@@ -27,11 +28,15 @@ final class EngineVersionCheck {
 
     final EngineVersionProperties latestEngineOut = new EngineVersionProperties();
 
-    if (ClientContext.engineVersion().isLessThan(latestEngineOut.getLatestVersionOut())) {
-      SwingUtilities
-          .invokeLater(() -> EventThreadJOptionPane.showMessageDialog(null, latestEngineOut.getOutOfDateComponent(),
-              "Please Update TripleA", JOptionPane.INFORMATION_MESSAGE));
-    }
+    Optional.ofNullable(latestEngineOut.getLatestVersionOut())
+        .ifPresent(latest -> {
+          if (ClientContext.engineVersion().isLessThan(latestEngineOut.getLatestVersionOut())) {
+            SwingUtilities
+                .invokeLater(
+                    () -> EventThreadJOptionPane.showMessageDialog(null, latestEngineOut.getOutOfDateComponent(),
+                        "Please Update TripleA", JOptionPane.INFORMATION_MESSAGE));
+          }
+        });
   }
 
   private static boolean isEngineUpdateCheckRequired() {
